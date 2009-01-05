@@ -1,8 +1,3 @@
-*Note*
-
-There is currently a bug in this implementation - the `tender_email` cookie is set to `"<email">` instead of `<email>`. Word on the street is change to the Tender code will allow this. (The Response.set_cookie() function stores cookie values as Python objects - so the email string is written as a Python string with quotes...)
-
-
 Info
 ----
 
@@ -15,20 +10,23 @@ This app includes a view like `django.contrib.auth.views.login` that in addition
 Installation
 ------------
 
-Just place these files in a folder called `tenderize` on your python path, add `tenderize` to your installed apps, and add the following to `settings.py`:
+First checkout the project into a folder called `tenderize` on your python path:
+git clone git@github.com:johnboxall/django-tenderize.git tenderize
+
+Second `tenderize` to your installed apps, and add the following to `settings.py`:
 
 # .yourdomain.com
-TENDER_COOKIE_DOMAIN = '.mobify.me'
+TENDER_COOKIE_DOMAIN = '.mysite.com'
 
 # get from tender
 TENDER_SECRET = "???"
 
 # your.tenderapp.com
-TENDER_DOMAIN = 'support.mobify.me'
+TENDER_DOMAIN = 'support.mysite.com'
 
 # how long the cookies will last
 TENDER_COOKIE_AGE = 1209600 # (2 weeks in seconds)
 
-Then add the following to urlpatterns in urls.py:
+Third the following to urlpatterns in `urls.py`:
 
 url(r'^login/$', 'tenderize.views.login_and_tenderize', name="login")
