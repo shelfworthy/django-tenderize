@@ -25,7 +25,7 @@ def login_and_tenderize(request, template_name='registration/login.html', redire
                 request.session.delete_test_cookie()
             # Tender in here
             response = HttpResponseRedirect(redirect_to)
-            response = tenderize_response(response, user.email)
+            response = tenderize_response(response, user)
             return response
     else:
         form = AuthenticationForm(request)
