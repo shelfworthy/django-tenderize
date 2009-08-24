@@ -1,9 +1,11 @@
+from django.utils import simplejson
+
 class Client:
     def __init__(self, user, password):
         self.user = user
         self.password = password
 
-    def _send_query(self, url):
+    def _send_query(self, url, data=None):
         '''
         Send a query to Tender API
         '''
@@ -17,6 +19,11 @@ class Client:
                 '%s:%s' % (self.user, self.password)
             )
         )
+        if data:
+            req.add_header('Content-Type', 'application/json')
+            req.add_data(simplejson.dumps(data))
+
+        #print req.get_method(), req.get_data(), req.get_full_url()
 
         f = urllib2.urlopen(req)
         return f.read()
@@ -25,12 +32,10 @@ class Client:
         '''
         Parse JSON response
         '''
-        from django.utils import simplejson
-
         return simplejson.loads(response)
 
-    def __get__(self, url):
-        response = self._send_query(url)
+    def __get__(self, url, data=None):
+        response = self._send_query(url, data)
         return self._parse_response(response)
 
     def get_sites(self):
@@ -48,8 +53,12 @@ class Client:
         '''
         return self.__get__('http://api.tenderapp.com/shelfworthy/queues')
 
-    def create_discussion(self, data):
+    def create_discussion(self, data, category=None):
         '''
         Creates a discussion from POST data
         '''
-        
+        url = 'http://api.tenderapp.com/shelfworthy/discussions'
+        if category:
+            url = '%s/%s' % (url, category)
+
+        return self.__get__(url, data)
