@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.test import TestCase
 
+from tenderize.api import Client
 from tenderize.helpers import tender_hash, tenderize_response
 from tenderize.views import login_and_tenderize
 
@@ -21,7 +22,7 @@ class TenderizeTest(TestCase):
         self.old_template_dir = settings.TEMPLATE_DIRS
         settings.TEMPLATE_DIRS = self.template_dirs
 
-        self.client = Client(user=settings.TENDER_EMAIL, password=settings.TENDER_PASSWORD)
+        self.tclient = Client(user=settings.TENDER_EMAIL, password=settings.TENDER_PASSWORD)
 
         self.user = 'user'
         self.email = 'user@gmail.com'
@@ -66,19 +67,19 @@ class TenderizeTest(TestCase):
     # API Tests
 
     def test_get_sites(self):
-        result = self.client.get_sites()
+        result = self.tclient.get_sites()
 
-        self.assertEquals(result['website'], 'http://tenderapp.com')
-        self.assertEquals(result['permalink'], 'help')
-        self.assertEquals(result['discussions_href'], 'http://api.tenderapp.com/help/discussions{-opt|/|state}{state}{-opt|?|page,user_email}{-join|&|page,user_email}')
-        self.assertEquals(result['sections_href'], 'http://api.tenderapp.com/help/sections{-opt|?|page}{-join|&|page}')
-        self.assertEquals(result['categories_href'], 'http://api.tenderapp.com/help/categories{-opt|?|page}{-join|&|page}')
-        self.assertEquals(result['href'], 'http://api.tenderapp.com/help')
-        self.assertEquals(result['profile_href'], 'http://api.tenderapp.com/help/profile')
-        self.assertEquals(result['name'], 'Tender')
+        self.assertEquals(result['website'], 'http://shelfworthy.com')
+        self.assertEquals(result['permalink'], 'shelfworthy')
+        self.assertEquals(result['discussions_href'], 'http://api.tenderapp.com/shelfworthy/discussions{-opt|/|state}{state}{-opt|?|page,user_email}{-join|&|page,user_email}')
+        self.assertEquals(result['sections_href'], 'http://api.tenderapp.com/shelfworthy/sections{-opt|?|page}{-join|&|page}')
+        self.assertEquals(result['categories_href'], 'http://api.tenderapp.com/shelfworthy/categories{-opt|?|page}{-join|&|page}')
+        self.assertEquals(result['href'], 'http://api.tenderapp.com/shelfworthy')
+        self.assertEquals(result['profile_href'], 'http://api.tenderapp.com/shelfworthy/profile')
+        self.assertEquals(result['name'], 'Shelfworthy')
 
     def test_get_categories(self):
-        result = self.client.get_categories()
+        result = self.tclient.get_categories()
 
         keys = (u'per_page', u'total', u'categories', u'offset')
 
@@ -96,7 +97,7 @@ class TenderizeTest(TestCase):
                         assert category.has_key(ck)
 
     def test_get_discussions(self):
-        result = self.client.get_discussions()
+        result = self.tclient.get_discussions()
 
 #        import pprint
 #        pp = pprint.PrettyPrinter(indent=4)
@@ -118,7 +119,7 @@ class TenderizeTest(TestCase):
                         assert discussion.has_key(dk)
 
 #    def test_get_queues(self):
-#        result = self.client.get_queues()
+#        result = self.tclient.get_queues()
 
 #        import pprint
 #        pp = pprint.PrettyPrinter(indent=4)

@@ -34,16 +34,22 @@ class Client:
         return self._parse_response(response)
 
     def get_sites(self):
-        return self.__get__('http://api.tenderapp.com/help')
+        return self.__get__('http://api.tenderapp.com/shelfworthy')
 
     def get_categories(self):
-        return self.__get__('http://api.tenderapp.com/help/categories')
+        return self.__get__('http://api.tenderapp.com/shelfworthy/categories')
 
     def get_discussions(self):
-        return self.__get__('http://api.tenderapp.com/help/discussions')
+        return self.__get__('http://api.tenderapp.com/shelfworthy/discussions')
 
     def get_queues(self):
         '''
         Have no idea why but it always returns 401: Unauthorized
         '''
-        return self.__get__('http://api.tenderapp.com/help/queues')
+        return self.__get__('http://api.tenderapp.com/shelfworthy/queues')
+
+    def create_discussion(self, data):
+        '''
+        Creates a discussion from POST data
+        '''
+        
