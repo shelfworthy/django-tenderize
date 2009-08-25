@@ -57,8 +57,8 @@ class Client:
         '''
         Creates a discussion from POST data
         '''
-        url = 'http://api.tenderapp.com/shelfworthy/discussions'
-        if category:
-            url = '%s/%s' % (url, category)
+        url = 'http://api.tenderapp.com/shelfworthy/categories/10267/discussions'
+        #if category:
+        #    url = '%s/%s' % (url, category)
 
         return self.__get__(url, data)
