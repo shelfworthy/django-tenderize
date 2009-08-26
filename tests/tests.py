@@ -68,7 +68,7 @@ class TenderizeTest(TestCase):
 
     def test_get_sites(self):
         result = self.tclient.get_sites()
-
+        
         self.assertEquals(result['website'], settings.TENDER_SITE)
         self.assertEquals(result['permalink'], settings.TENDER_APP_NAME)
         self.assertEquals(result['discussions_href'], 'http://api.tenderapp.com/%s/discussions{-opt|/|state}{state}{-opt|?|page,user_email}{-join|&|page,user_email}' % settings.TENDER_APP_NAME)
@@ -77,6 +77,10 @@ class TenderizeTest(TestCase):
         self.assertEquals(result['href'], 'http://api.tenderapp.com/%s' % settings.TENDER_APP_NAME)
         self.assertEquals(result['profile_href'], 'http://api.tenderapp.com/%s/profile' % settings.TENDER_APP_NAME)
         self.assertEquals(result['name'], settings.TENDER_SITE_NAME)
+        
+        #test the ResponseDict object
+        self.assertEquals(result.website, settings.TENDER_SITE)
+        self.assertEquals(result['permalink'], settings.TENDER_APP_NAME)
 
     def test_get_categories(self):
         result = self.tclient.get_categories()

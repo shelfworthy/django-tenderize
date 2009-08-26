@@ -1,6 +1,15 @@
 from django.conf import settings
 from django.utils import simplejson
 
+class ResponseDict(dict):
+    ''' Simple wrapper of dict object, gives access to dict keys as properties'''
+    def __getattr__(self, name):
+        try:
+            return self.__getitem__(name)
+        except KeyError:
+            return super(ResponseDict,self).__getattr__(name)
+
+
 class Client:
     def __init__(self, user, password):
         self.user = user
@@ -33,7 +42,7 @@ class Client:
         '''
         Parse JSON response
         '''
-        return simplejson.loads(response)
+        return ResponseDict(simplejson.loads(response))
 
     def __get__(self, url, data=None):
         response = self._send_query(url, data)
