@@ -9,7 +9,7 @@ This app includes a view like `django.contrib.auth.views.login` that in addition
 Tender API
 ----------
 
-This app also includes support for the tender API.
+This app also includes support for the tender API. This should be getting more love and documentation shortly.
 
 Installation
 ------------
@@ -19,15 +19,15 @@ git clone git://github.com/chrisdrackett/django-tenderize.git tenderize
 
 2) Add `tenderize` to your installed apps, and add the following to `settings.py`:
 
-TENDER_SITE = 'http://mysite.com' # The site you are using tender for.
-TENDER_SITE_NAME = 'My Site' # The name of the site you are using tender for.
+TENDER_SITE = 'http://mysite.com' # the site you are using tender for
+TENDER_SITE_NAME = 'My Site' # the name of the site you are using tender for
+TENDER_APP_NAME = 'appname' # your tender app name, <appname>.tenderapp.com/
 TENDER_COOKIE_DOMAIN = '.mysite.com'
 TENDER_SECRET = "???" # get from tender
 TENDER_DOMAIN = 'support.mysite.com' # your.tenderapp.com
 TENDER_COOKIE_AGE = 1209600 # how long the cookies will last (2 weeks in seconds)
-TENDER_EMAIL = 'email@address.com'
-TENDER_PASSWORD = 'xxxx'
-TENDER_APP_NAME = 'appname' # your tender app name, <appname>.tenderapp.com/
+TENDER_EMAIL = 'email@address.com' # this is the default email that will be used for API requests
+TENDER_PASSWORD = 'xxxx' # the password that goes along with the above email
 
 3) Add the following to urlpatterns in `urls.py`:
 
