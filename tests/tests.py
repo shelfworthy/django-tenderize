@@ -27,10 +27,9 @@ class TenderizeTest(TestCase):
         self.user = 'user'
         self.email = 'user@gmail.com'
         self.password = 'password'
+        self.tender = 'help.yourapp.com'
         self.expires = 1228117891
         self.secret = 'monkey'
-        self.tender = settings.TENDER_DOMAIN
-        self.appname = settings.TENDER_APP_NAME
  
     def tearDown(self):
         settings.TEMPLATE_DIRS = self.old_template_dir
