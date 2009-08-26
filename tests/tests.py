@@ -27,9 +27,10 @@ class TenderizeTest(TestCase):
         self.user = 'user'
         self.email = 'user@gmail.com'
         self.password = 'password'
-        self.tender = 'help.yourapp.com'
         self.expires = 1228117891
         self.secret = 'monkey'
+        self.tender = settings.TENDER_DOMAIN
+        self.appname = settings.TENDER_APP_NAME
  
     def tearDown(self):
         settings.TEMPLATE_DIRS = self.old_template_dir
@@ -69,14 +70,14 @@ class TenderizeTest(TestCase):
     def test_get_sites(self):
         result = self.tclient.get_sites()
 
-        self.assertEquals(result['website'], 'http://shelfworthy.com')
-        self.assertEquals(result['permalink'], 'shelfworthy')
-        self.assertEquals(result['discussions_href'], 'http://api.tenderapp.com/shelfworthy/discussions{-opt|/|state}{state}{-opt|?|page,user_email}{-join|&|page,user_email}')
-        self.assertEquals(result['sections_href'], 'http://api.tenderapp.com/shelfworthy/sections{-opt|?|page}{-join|&|page}')
-        self.assertEquals(result['categories_href'], 'http://api.tenderapp.com/shelfworthy/categories{-opt|?|page}{-join|&|page}')
-        self.assertEquals(result['href'], 'http://api.tenderapp.com/shelfworthy')
-        self.assertEquals(result['profile_href'], 'http://api.tenderapp.com/shelfworthy/profile')
-        self.assertEquals(result['name'], 'Shelfworthy')
+        self.assertEquals(result['website'], settings.TENDER_SITE)
+        self.assertEquals(result['permalink'], settings.TENDER_APP_NAME)
+        self.assertEquals(result['discussions_href'], 'http://api.tenderapp.com/%s/discussions{-opt|/|state}{state}{-opt|?|page,user_email}{-join|&|page,user_email}' % settings.TENDER_APP_NAME)
+        self.assertEquals(result['sections_href'], 'http://api.tenderapp.com/%s/sections{-opt|?|page}{-join|&|page}' % settings.TENDER_APP_NAME)
+        self.assertEquals(result['categories_href'], 'http://api.tenderapp.com/%s/categories{-opt|?|page}{-join|&|page}' % settings.TENDER_APP_NAME)
+        self.assertEquals(result['href'], 'http://api.tenderapp.com/%s' % settings.TENDER_APP_NAME)
+        self.assertEquals(result['profile_href'], 'http://api.tenderapp.com/%s/profile' % settings.TENDER_APP_NAME)
+        self.assertEquals(result['name'], settings.TENDER_SITE_NAME)
 
     def test_get_categories(self):
         result = self.tclient.get_categories()

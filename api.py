@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.utils import simplejson
 
 class Client:
@@ -39,25 +40,25 @@ class Client:
         return self._parse_response(response)
 
     def get_sites(self):
-        return self.__get__('http://api.tenderapp.com/shelfworthy')
+        return self.__get__('http://api.tenderapp.com/%s' % settings.TENDER_APP_NAME)
 
     def get_categories(self):
-        return self.__get__('http://api.tenderapp.com/shelfworthy/categories')
+        return self.__get__('http://api.tenderapp.com/%s/categories' % settings.TENDER_APP_NAME)
 
     def get_discussions(self):
-        return self.__get__('http://api.tenderapp.com/shelfworthy/discussions')
+        return self.__get__('http://api.tenderapp.com/%s/discussions' % settings.TENDER_APP_NAME)
 
     def get_queues(self):
         '''
         Have no idea why but it always returns 401: Unauthorized
         '''
-        return self.__get__('http://api.tenderapp.com/shelfworthy/queues')
+        return self.__get__('http://api.tenderapp.com/%s/queues' % settings.TENDER_APP_NAME)
 
     def create_discussion(self, data, category=None):
         '''
         Creates a discussion from POST data
         '''
-        url = 'http://api.tenderapp.com/shelfworthy/categories/10267/discussions'
+        url = 'http://api.tenderapp.com/%s/categories/10267/discussions' % settings.TENDER_APP_NAME
         #if category:
         #    url = '%s/%s' % (url, category)
 
