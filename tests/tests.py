@@ -81,7 +81,7 @@ class TenderizeTest(TestCase):
         
         #test the ResponseDict object
         self.assertEquals(result.website, settings.TENDER_SITE)
-        self.assertEquals(result['permalink'], settings.TENDER_APP_NAME)
+        self.assertEquals(result.permalink, settings.TENDER_APP_NAME)
 
     def test_get_categories(self):
         result = self.tclient.get_categories()

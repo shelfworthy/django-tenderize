@@ -7,13 +7,16 @@ class ResponseDict(dict):
         try:
             return self.__getitem__(name)
         except KeyError:
-            return super(ResponseDict,self).__getattr__(name)
+            raise AttributeError(name)
+        
 
 
-class Client:
+class Client(object):
     def __init__(self, user, password):
         self.user = user
         self.password = password
+        #initial data
+        self.site = self.get_sites()
 
     def _send_query(self, url, data=None):
         '''
@@ -72,3 +75,10 @@ class Client:
         #    url = '%s/%s' % (url, category)
 
         return self.__get__(url, data)
+        
+    def __getattr__(self, name):
+        try:
+            return super(Client, self).__getattr__(name)
+        except AttributeError:
+            return getattr(self.site, name)
+            
