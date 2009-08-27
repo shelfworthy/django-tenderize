@@ -8,8 +8,12 @@ from django.utils.hashcompat import sha_constructor
 from tenderize.pytender import Client
 
 # helper to setup an instance of the API
-def tender_api():
-    return Client(app_name=settings.TENDER_APP_NAME, user=settings.TENDER_EMAIL, password=settings.TENDER_PASSWORD)
+def tender_api(email=None, password=None):
+    return Client(
+        app_name=settings.TENDER_APP_NAME,
+        user=email or settings.TENDER_EMAIL,
+        password=password or settings.TENDER_PASSWORD
+    )
 
 # help.yourapp.com/user@gmail.com/1228117891
 HASH_FORMAT = "%s/%s/%s"
