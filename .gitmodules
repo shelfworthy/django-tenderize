@@ -1,0 +1,3 @@
+[submodule "pytender"]
+	path = pytender
+	url = git://github.com/chrisdrackett/pytender.git

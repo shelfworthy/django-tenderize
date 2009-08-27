@@ -5,6 +5,15 @@ from django.conf import settings
 from django.utils.http import cookie_date
 from django.utils.hashcompat import sha_constructor
 
+from tenderize.pytender import Client
+
+# helper to setup an instance of the API
+def tender_api(email=None, password=None):
+    return Client(
+        app_name=settings.TENDER_APP_NAME,
+        user=email or settings.TENDER_EMAIL,
+        password=password or settings.TENDER_PASSWORD
+    )
 
 # help.yourapp.com/user@gmail.com/1228117891
 HASH_FORMAT = "%s/%s/%s"
@@ -18,7 +27,6 @@ COOKIE_DOMAIN = TENDER_DOMAIN[TENDER_DOMAIN.find('.'):]
 SECRET = settings.TENDER_SECRET
 # cookie age in seconds
 AGE = settings.TENDER_COOKIE_AGE
-
 
 def tender_hash(email, expires, tender=TENDER_DOMAIN, secret=SECRET):
     """
