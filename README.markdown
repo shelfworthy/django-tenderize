@@ -16,6 +16,7 @@ Installation
 2. Update the submodules (this gets the python tender API wrapper)
 
 	cd django-tenderize/
+
 	git submodule update --init
 
 2) Add `tenderize` to your installed apps, and add the following to `settings.py`:
