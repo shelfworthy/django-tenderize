@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.test import TestCase
 
-from tenderize.api import Client
+from tenderize.tender import TenderClient
 from tenderize.helpers import tender_hash, tenderize_response
 from tenderize.views import login_and_tenderize
 
@@ -22,7 +22,7 @@ class TenderizeTest(TestCase):
         self.old_template_dir = settings.TEMPLATE_DIRS
         settings.TEMPLATE_DIRS = self.template_dirs
 
-        self.tclient = Client(user=settings.TENDER_EMAIL, password=settings.TENDER_PASSWORD)
+        self.tclient = TenderClient(user=settings.TENDER_EMAIL, password=settings.TENDER_PASSWORD)
 
         self.user = 'user'
         self.email = 'user@gmail.com'
