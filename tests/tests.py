@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.test import TestCase
 
-from tenderize.helpers import tender_hash, tenderize_response
+from tenderize.helpers import tender_hash, tenderize_response, tender_api
 from tenderize.views import login_and_tenderize
 
 
@@ -30,6 +30,11 @@ class TenderizeTest(TestCase):
     
     def tearDown(self):
         settings.TEMPLATE_DIRS = self.old_template_dir
+    
+    def testTenderAPI(self):
+        # this is to test if the API is working given the variables you have in settings
+        tclient = tender_api()
+        self.assertEquals(tclient.permalink, settings.TENDER_APP_NAME)
     
     def testTenderHash(self):
         result = tender_hash(self.email, self.expires, self.tender, self.secret)
