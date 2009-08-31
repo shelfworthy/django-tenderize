@@ -5,11 +5,11 @@ from django.conf import settings
 from django.utils.http import cookie_date
 from django.utils.hashcompat import sha_constructor
 
-from tenderize.pytender import Client
+from tenderize.pytender import TenderClient
 
 # helper to setup an instance of the API
 def tender_api(email=None, password=None):
-    return Client(
+    return TenderClient(
         app_name=settings.TENDER_APP_NAME,
         user=email or settings.TENDER_EMAIL,
         password=password or settings.TENDER_PASSWORD

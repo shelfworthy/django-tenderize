@@ -6,6 +6,13 @@ http://help.tenderapp.com/faqs/setup-installation/login-from-cookies
 
 This app includes a view like `django.contrib.auth.views.login` that in addition to logging a user in as normal, sets the cookies required by Tender. Yum.
 
+Requirements
+============
+
+To use the API parts of tender you will need to install the following on your python path:
+
+* [tpg](http://christophe.delord.free.fr/tpg/index.html)
+
 Installation
 ============
 
