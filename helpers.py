@@ -6,6 +6,7 @@ from django.utils.http import cookie_date
 from django.utils.hashcompat import sha_constructor
 
 from tenderize.pytender import TenderClient
+from tenderize.models import Category
 
 # helper to setup an instance of the API
 def tender_api(email=None, password=None):
@@ -14,6 +15,23 @@ def tender_api(email=None, password=None):
         user=email or settings.TENDER_EMAIL,
         password=password or settings.TENDER_PASSWORD
     )
+
+def sync_categories(email=None, password=None):
+    api = tender_api(email, password)
+    
+    for tender_cat in api.categories():
+        category, created = Category.objects.get_or_create(
+            id=tender_cat.id,
+            defaults={
+                'name':tender_cat.name,
+                'permalink':tender_cat.permalink
+            }
+        )
+        
+        if not created:
+            category.name=tender_cat.name
+            category.permalink=tender_cat.permalink
+            category.save()
 
 # help.yourapp.com/user@gmail.com/1228117891
 HASH_FORMAT = "%s/%s/%s"
