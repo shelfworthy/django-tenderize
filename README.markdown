@@ -44,6 +44,8 @@ TENDER_COOKIE_AGE = 1209600 # how long the cookies will last (2 weeks in seconds
 
 url(r'^login/$', 'tenderize.views.login_and_tenderize', name="login")
 
+4) Run syncdb
+
 Tender API
 ============
 
@@ -52,5 +54,6 @@ You can initiate the api using the helper function 'tender_api' in helpers.py.
 This function will default to using the email and password you have in settings,
 but can be overridden.
 
-
-
+Currently there is a helper in place to sync categories from tender into your database.
+This should help you display categories without hitting tender. We also have a shortcut
+to create discussions directly from the django Category object.
