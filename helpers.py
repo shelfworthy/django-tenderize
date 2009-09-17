@@ -19,6 +19,8 @@ def tender_api(email=None, password=None):
 def sync_categories(email=None, password=None):
     api = tender_api(email, password)
     
+    Category.objects.all().delete()
+    
     for tender_cat in api.categories():
         category, created = Category.objects.get_or_create(
             id=tender_cat.id,

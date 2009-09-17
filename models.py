@@ -1,5 +1,3 @@
-
-
 from django.conf import settings
 from django.db import models
 
@@ -14,5 +12,4 @@ class Category(models.Model):
     def create_discussion(self, title, body, user):
         from tenderize.helpers import tender_api
         
-        api = tender_api()
-        return api.create_discussion(title, body, self.id, user.email, user.username)
+        return tender_api().create_discussion(title, body, self.id, user.email, user.username)
