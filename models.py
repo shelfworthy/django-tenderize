@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(blank=True, max_length=100)
     permalink = models.CharField(blank=True, max_length=100)
     
-    def create_discussion(self, title, body, user):
+    def create_discussion(self, title, body, user, public=True):
         from tenderize.helpers import tender_api
         
-        return tender_api().create_discussion(title, body, self.id, user.email, user.username)
+        return tender_api().create_discussion(title, body, self.id, user.email, user.username, public)

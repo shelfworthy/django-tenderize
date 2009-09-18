@@ -77,7 +77,7 @@ def tenderize_response(response, email, extra_cookies=None):
         response.set_cookie(cookie, value, expires=cookie_expires, domain=COOKIE_DOMAIN)
     # response.set_cookie() incorrectly adds quotes to the tender_email cookie.
     # To remove the quotes we set the value again.
-    response.cookies['tender_email'].coded_value = email    
+    response.cookies['tender_email'].coded_value = email
     return response
     
 def detenderize_response(response, extra_cookie_keys=None):
