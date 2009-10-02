@@ -22,18 +22,12 @@ def sync_categories(email=None, password=None):
     Category.objects.all().delete()
     
     for tender_cat in api.categories():
-        category, created = Category.objects.get_or_create(
+        Category.objects.create(
             id=tender_cat.id,
-            defaults={
-                'name':tender_cat.name,
-                'permalink':tender_cat.permalink
-            }
+            name=tender_cat.name,
+            permalink=tender_cat.permalink,
+            url=tender_cat.href
         )
-        
-        if not created:
-            category.name=tender_cat.name
-            category.permalink=tender_cat.permalink
-            category.save()
 
 # help.yourapp.com/user@gmail.com/1228117891
 HASH_FORMAT = "%s/%s/%s"

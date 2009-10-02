@@ -6,8 +6,9 @@ class Category(models.Model):
         This model should be populated using sync_categories in tenderize.helpers.
     '''
 
-    name = models.CharField(blank=True, max_length=100)
-    permalink = models.CharField(blank=True, max_length=100)
+    name = models.CharField(max_length=100)
+    permalink = models.CharField(max_length=100)
+    url = models.URLField()
     
     def create_discussion(self, title, body, user, public=True):
         from tenderize.helpers import tender_api
