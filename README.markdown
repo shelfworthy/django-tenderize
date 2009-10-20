@@ -22,7 +22,7 @@ Installation
 
 1. Checkout the project into a folder called `tenderize` on your python path:
 
-	git clone git://github.com/johnboxall/django-tenderize.git tenderize
+	git clone git://github.com/chrisdrackett/django-tenderize.git tenderize
 
 2. Update the submodules (this gets the python tender API wrapper)
 
