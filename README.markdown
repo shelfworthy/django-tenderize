@@ -6,9 +6,7 @@ http://help.tenderapp.com/faqs/setup-installation/login-from-cookies
 
 This app includes a view like `django.contrib.auth.views.login` that in addition to logging a user in as normal, sets the cookies required by Tender. Yum.
 
-Please direct all bugs and feature requests to the lighthouse page for this project:
-
-http://chrisdrackett.lighthouseapp.com/projects/37333-python-tender/overview
+Please direct all bugs and feature requests to the [lighthouse](http://chrisdrackett.lighthouseapp.com/projects/37333-python-tender/overview) page for this project.
 
 Requirements
 ============
