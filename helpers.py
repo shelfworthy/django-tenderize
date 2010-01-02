@@ -37,7 +37,9 @@ HASH_FORMAT = "%s/%s/%s"
 COOKIE_FORMAT = "tender_%s"
 # support.tender.com
 TENDER_DOMAIN = settings.TENDER_DOMAIN
+
 TENDER_SSO_SECRET = settings.TENDER_SSO_SECRET
+TENDER_APP_NAME = settings.TENDER_APP_NAME
 # .tender.com
 COOKIE_DOMAIN = TENDER_DOMAIN[TENDER_DOMAIN.find('.'):]
 # get from Tender - http://support.example.com/settings
@@ -93,7 +95,7 @@ def detenderize_response(response, extra_cookie_keys=None):
     return response
     
     
-def tender_multipass(name, email, tender=TENDER_DOMAIN, sso_secret=TENDER_SSO_SECRET, **kw):
+def tender_multipass(name, email, tender=TENDER_APP_NAME, sso_secret=TENDER_SSO_SECRET, **kw):
     data = {'expires': (datetime.now()+timedelta(seconds=AGE)).strftime("%Y-%m-%dT%H:%M"), 'name': name, 'email': email}
     data.update(kw)
     return MultiPass(tender, sso_secret).encode(data)
