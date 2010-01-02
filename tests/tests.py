@@ -34,7 +34,7 @@ class TenderizeTest(TestCase):
     def testTenderAPI(self):
         # this is to test if the API is working given the variables you have in settings
         tclient = tender_api()
-        self.assertEquals(tclient.permalink, settings.TENDER_APP_NAME)
+        self.assertEquals(tclient.raw_data.permalink, settings.TENDER_APP_NAME)
     
     def testTenderHash(self):
         result = tender_hash(self.email, self.expires, self.tender, self.secret)
