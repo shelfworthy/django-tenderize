@@ -7,6 +7,7 @@ from django.utils.hashcompat import sha_constructor
 
 from tenderize.pytender import TenderClient
 from tenderize.models import Category
+from tenderize.multipass import MultiPass
 
 # helper to setup an instance of the API
 def tender_api(email=None, password=None):
@@ -35,6 +36,7 @@ HASH_FORMAT = "%s/%s/%s"
 COOKIE_FORMAT = "tender_%s"
 # support.tender.com
 TENDER_DOMAIN = settings.TENDER_DOMAIN
+TENDER_SSO_SECRET = settings.TENDER_SSO_SECRET
 # .tender.com
 COOKIE_DOMAIN = TENDER_DOMAIN[TENDER_DOMAIN.find('.'):]
 # get from Tender - http://support.example.com/settings
@@ -88,3 +90,10 @@ def detenderize_response(response, extra_cookie_keys=None):
         response.delete_cookie(cookie, domain=COOKIE_DOMAIN)
 
     return response
+    
+    
+def tender_multipass(name, email, expires, tender=TENDER_DOMAIN, sso_secret=TENDER_SSO_SECRET, **kw):
+    data = {'expires': expires, 'name': name, 'email': email}
+    data.update(kw)
+    return MultiPass(tender, sso_secret).encode(data)
+    

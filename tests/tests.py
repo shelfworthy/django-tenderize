@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.test import TestCase
 
-from tenderize.helpers import tender_hash, tenderize_response, tender_api
+from tenderize.helpers import tender_hash, tenderize_response, tender_api, tender_multipass
 from tenderize.views import login_and_tenderize
 
 
@@ -67,10 +67,6 @@ class TenderizeTest(TestCase):
         self.assertTrue(isinstance(response, HttpResponse))
         
     def testMultipassToken(self):
-        from tenderize.multipass import MultiPass
-        multipass = MultiPass("some_site", "some_key")
-        
-        data = {'expires': '2010-01-16T13:19', 'name': 'Dmitry Shevchenko', 'email': 'dmishe@gmail.com'}
-        
-        self.assertEquals(multipass.encode(data), 'mi2sYmBjQXdOt3k7pIS3wWZYTIPnOpLUHwHBHU0eKzsp908zyZ54g3WPOmreGkMddXePgVKncnW5%0A%2B8Cnfbo1gmk%2BTOGCgBkujledRviYwRXK1DppVNwPAGupQLs%2BKYjq%0A')
+        self.assertEquals(tender_multipass('Dmitry Shevchenko', 'dmishe@gmail.com', '2010-01-16T13:19', tender='some_site', sso_secret='some_key'), \
+            'mi2sYmBjQXdOt3k7pIS3wWZYTIPnOpLUHwHBHU0eKzsp908zyZ54g3WPOmreGkMddXePgVKncnW5%0A%2B8Cnfbo1gmk%2BTOGCgBkujledRviYwRXK1DppVNwPAGupQLs%2BKYjq%0A')
         
