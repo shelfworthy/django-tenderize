@@ -65,3 +65,12 @@ class TenderizeTest(TestCase):
         bad_data = {'username': self.user, 'password': 'monkey'}
         response = self.client.post(login, bad_data, follow=False)
         self.assertTrue(isinstance(response, HttpResponse))
+        
+    def testMultipassToken(self):
+        from tenderize.multipass import MultiPass
+        multipass = MultiPass("some_site", "some_key")
+        
+        data = {'expires': '2010-01-16T13:19', 'name': 'Dmitry Shevchenko', 'email': 'dmishe@gmail.com'}
+        
+        self.assertEquals(multipass.encode(data), 'mi2sYmBjQXdOt3k7pIS3wWZYTIPnOpLUHwHBHU0eKzsp908zyZ54g3WPOmreGkMddXePgVKncnW5%0A%2B8Cnfbo1gmk%2BTOGCgBkujledRviYwRXK1DppVNwPAGupQLs%2BKYjq%0A')
+        
