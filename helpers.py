@@ -1,5 +1,6 @@
 import hmac
 from time import time
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.utils.http import cookie_date
@@ -92,8 +93,8 @@ def detenderize_response(response, extra_cookie_keys=None):
     return response
     
     
-def tender_multipass(name, email, expires, tender=TENDER_DOMAIN, sso_secret=TENDER_SSO_SECRET, **kw):
-    data = {'expires': expires, 'name': name, 'email': email}
+def tender_multipass(name, email, tender=TENDER_DOMAIN, sso_secret=TENDER_SSO_SECRET, **kw):
+    data = {'expires': (datetime.now()+timedelta(seconds=AGE)).strftime("%Y-%m-%dT%H:%M"), 'name': name, 'email': email}
     data.update(kw)
     return MultiPass(tender, sso_secret).encode(data)
     

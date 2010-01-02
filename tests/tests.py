@@ -67,6 +67,6 @@ class TenderizeTest(TestCase):
         self.assertTrue(isinstance(response, HttpResponse))
         
     def testMultipassToken(self):
-        self.assertEquals(tender_multipass('Dmitry Shevchenko', 'dmishe@gmail.com', '2010-01-16T13:19', tender='some_site', sso_secret='some_key'), \
+        self.assertEquals(tender_multipass('Dmitry Shevchenko', 'dmishe@gmail.com', tender='some_site', sso_secret='some_key', expires='2010-01-16T13:19'), \
             'mi2sYmBjQXdOt3k7pIS3wWZYTIPnOpLUHwHBHU0eKzsp908zyZ54g3WPOmreGkMddXePgVKncnW5%0A%2B8Cnfbo1gmk%2BTOGCgBkujledRviYwRXK1DppVNwPAGupQLs%2BKYjq%0A')
         
