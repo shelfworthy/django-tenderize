@@ -1,11 +1,6 @@
 Info
 ====
 
-Tender uses tasty cookies to log your users in.
-http://help.tenderapp.com/faqs/setup-installation/login-from-cookies
-
-This app includes a view like `django.contrib.auth.views.login` that in addition to logging a user in as normal, sets the cookies required by Tender. Yum.
-
 Please direct all bugs and feature requests to the lighthouse page for this project:
 
 http://chrisdrackett.lighthouseapp.com/projects/37333-python-tender/overview
@@ -16,6 +11,11 @@ Requirements
 To use the API parts of tender you will need to install the following on your python path:
 
 * [tpg](http://christophe.delord.free.fr/tpg/index.html)
+* [M2Crypto](http://chandlerproject.org/bin/view/Projects/MeTooCrypto)
+
+The following is included as a submoulde of this project, and will be automatically downloaded using the instructions below.
+
+* [pytender](http://github.com/chrisdrackett/pytender)
 
 Installation
 ============
@@ -35,16 +35,30 @@ Installation
 TENDER_APP_NAME = 'appname' # your tender app name, <appname>.tenderapp.com/
 TENDER_EMAIL = 'email@address.com' # this is the default email that will be used for API requests
 TENDER_PASSWORD = 'xxxx' # the password that goes along with the above email
-TENDER_COOKIE_DOMAIN = '.mysite.com'
 TENDER_SECRET = "???" # get from tender
 TENDER_DOMAIN = 'support.mysite.com' # your.tenderapp.com
-TENDER_COOKIE_AGE = 1209600 # how long the cookies will last (2 weeks in seconds)
+TENDER_LOGIN_TIME = 1209600 # how long the cookies will last (2 weeks in seconds)
 
 3) Add the following to urlpatterns in `urls.py`:
 
-url(r'^login/$', 'tenderize.views.login_and_tenderize', name="login")
+(r'^', include('tenderize.urls'))
 
 4) Run syncdb
+
+Use
+===
+
+tenderize uses multipass for logging users into tender. To get this URL you can use the helper:
+
+>> from tenderize.helpers import multipass_url
+
+or the templatetag:
+
+{{ load tender_tags }}
+
+{% tender_url request.user %}
+
+The template tag will send the user to the root of your tender project while the helper will let you specify any URL on your tender site you like.
 
 Tender API
 ============
