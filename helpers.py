@@ -19,13 +19,16 @@ def tender_api():
     )
 
 def multipass_url(url, user, display_name=None, avatar_url=None, extras=None):
-    return tender_api().multipass_url(url, tender_api().multipass(
-        username=display_name or user.username,
-        email=user.email,
-        unique_id=user.id,
-        avatar_url=avatar_url,
-        extras=extras
-    ))
+    if user.is_authenticated():
+        return tender_api().multipass_url(url, tender_api().multipass(
+            username=display_name or user.username,
+            email=user.email,
+            unique_id=user.id,
+            avatar_url=avatar_url,
+            extras=extras
+        ))
+    else:
+        return url
 
 def sync_categories(email=None):
     api = tender_api()
