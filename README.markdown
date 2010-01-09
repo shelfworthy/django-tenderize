@@ -52,14 +52,6 @@ tenderize uses multipass for logging users into tender. To get this URL you can 
 
 >> from tenderize.helpers import multipass_url
 
-or the templatetag:
-
-{{ load tender_tags }}
-
-{% tender_url request.user %}
-
-The template tag will send the user to the root of your tender project while the helper will let you specify any URL on your tender site you like.
-
 Tender API
 ============
 
