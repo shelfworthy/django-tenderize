@@ -8,7 +8,6 @@ from django.utils.hashcompat import sha_constructor
 
 from tenderize.pytender import TenderClient
 from tenderize.models import Category
-from tenderize.multipass import MultiPass
 
 # helper to setup an instance of the API
 
