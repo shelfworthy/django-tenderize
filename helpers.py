@@ -23,7 +23,7 @@ def multipass_url(url, user, display_name=None, **kw):
         return tender_api().multipass_url(url, tender_api().multipass(
             username=display_name or user.username,
             email=user.email,
-            unique_id=user.id,
+            unique_id=str(user.id),
             **kw
         ))
     else:
