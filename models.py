@@ -13,4 +13,4 @@ class Category(models.Model):
     
     def create_discussion(self, title, body, user, public=True):
         from tenderize.helpers import tender_api
-        return tender_api().create_discussion(title, body, self.id, user.email, user.username, public)
+        return tender_api().create_discussion(title, body, self.id, user.email, public)
